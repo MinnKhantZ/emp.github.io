@@ -14,32 +14,32 @@ public class EmpRepository {
 	}
 	
 	public List<Employee> findAll() {
-		return jdbcClient.sql("select * from employee")
+		return jdbcClient.sql("SELECT * FROM employee")
 				.query(Employee.class)
 				.list();
 	}
 	
 	Employee findById(int id) {
-		return jdbcClient.sql("select * from employee where number = ?")
+		return jdbcClient.sql("SELECT * FROM employee WHERE number = ?")
 				.param(id)
 				.query(Employee.class)
 				.single();
 	}
 	
 	void create(Employee emp) {
-		jdbcClient.sql("insert into employee (role, salary) values (?, ?)")
+		jdbcClient.sql("INSERT INTO employee (role, salary) VALUES (?, ?)")
 			.params(emp.role(), emp.salary())
 			.update();
 	}
 	
 	void update(Employee emp, int id) {
-		jdbcClient.sql("update employee set role = ?, salary = ? where number = ?")
+		jdbcClient.sql("UPDATE employee SET role = ?, salary = ? WHERE number = ?")
 			.params(emp.role(), emp.salary(), id)
 			.update();
 	}
 	
 	void delete(int id) {
-		jdbcClient.sql("delete from employee where number = ?")
+		jdbcClient.sql("DELETE FROM employee WHERE number = ?")
 			.param(id)
 			.update();
 		
